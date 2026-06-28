@@ -889,6 +889,8 @@ class DogFightEnv(gym.Env):
         return float(value % 360.0)
 
     def add_random_init_position(self, flight="ownship", radius=500.0, r_roll=5, r_pitch=5, r_heading=5):
+        if radius <= 0:
+            return
         fighter = self._sim if flight == "ownship" else self._target_sim
         sign = np.array([-1.0, 1.0])
         fighter._init_pos_n += float(self.np_random.choice(sign) * self.np_random.integers(0, radius))
